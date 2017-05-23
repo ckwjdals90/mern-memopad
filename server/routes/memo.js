@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 const router = express.Router();
 
-// Write Memo
+// Create Memo
 router.post('/', (req, res) => {
   // Check Login Status
   if (typeof req.session.loginInfo === 'undefined') {
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
 
 });
 
-// Modify Memo
+// Update Memo
 router.put('/:id', (req, res) => {
   // Check Meme ID Validity
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -145,7 +145,7 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-// Get Memo List
+// Read Memo List
 router.get('/', (req, res) => {
   Memo.find()
     .sort({"_id": -1})
