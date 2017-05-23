@@ -50,8 +50,45 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/signin', (req, res) => {
-  /* to be implemented */
-  res.json({ success: true });
+
+  if (typeof req.body.password !== "string") {
+    return res.status(401).json({
+      error: "LOGIN FAILED",
+      code: 1
+    });
+  }
+
+  // Find the User by Username
+  Account.findOne({ username: req.body.username }, (err, account) => {
+    if (err) throw err;
+
+    // Check Account Existancy
+    if (!account) {
+      return res.status(401).json({
+        error: "LOGIN FAILED",
+        code: 1
+      });
+    }
+
+    // Check whether the Password is Valid
+    if (!account.validateHash(req.body.password)) {
+      return res.status(401).json({
+        error: "LOGIN FAILED",
+        code: 1
+      });
+    }
+
+    // Alter Session
+    let session = req.session;
+    session.loginInfo = {
+      _id: account._id,
+      username: account.username
+    };
+
+    // Return Success
+    return res.json({ success: true });
+
+  });
 });
 
 router.get('/getinfo', (req, res) => {
