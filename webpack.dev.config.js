@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   entry: [
@@ -48,6 +49,10 @@ module.exports = {
         exclude: /node_modules/,
       }
     ]
+  },
+
+  resolve: {
+    modules: [path.resolve(__dirname, "src"), "node_modules"]
   }
 
 };

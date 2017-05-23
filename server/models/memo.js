@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const Schema = moongoose.Schema;
+const Schema = mongoose.Schema;
 
 const Memo = new Schema({
   writer: String,
