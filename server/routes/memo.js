@@ -147,7 +147,13 @@ router.delete('/:id', (req, res) => {
 
 // Get Memo List
 router.get('/', (req, res) => {
-  /* to be implemented */
+  Memo.find()
+    .sort({"_id": -1})
+    .limit(6)
+    .exec((err, memos) => {
+      if (err) throw err;
+      res.json(memos);
+    });
 });
 
 export default router;
