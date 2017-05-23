@@ -6,7 +6,41 @@ const router = express.Router();
 
 // Write Memo
 router.post('/', (req, res) => {
-  /* to be implemented */
+  // Check Login Status
+  if (typeof req.session.loginInfo === 'undefined') {
+    return res.status(403).json({
+      error: "NOT LOGGED IN",
+      code: 1
+    });
+  }
+
+  // Check Contents Valid
+  if (typeof req.body.content !== 'string') {
+    return res.status(400).json({
+      error: "EMPTY CONTENTS",
+      code: 2
+    });
+  }
+
+  if (req.body.content === "") {
+    return res.status(400).json({
+      error: "EMPTY CONTENTS",
+      code: 2
+    });
+  }
+
+  //Create New Memo
+  let memo = new Memo({
+    writer: req.session.loginInfo.username,
+    contents: req.body.contents
+  });
+
+  // Save in Database
+  memo.save( err => {
+    if (err) throw err;
+    return res.json({ success: true });
+  });
+
 });
 
 // Modify Memo
