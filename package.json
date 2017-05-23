@@ -1,5 +1,5 @@
 {
-  "name": "react_infinite_scroll_memopad",
+  "name": "mern_ris_memopad",
   "version": "1.0.0",
   "description": "A single-page infinite-scrolling public memo app implemented using React, Redux, Express.js and MongoDB",
   "main": "index.js",
@@ -12,6 +12,7 @@
   "author": "Jungmin Cha",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "express-session": "^1.15.3",

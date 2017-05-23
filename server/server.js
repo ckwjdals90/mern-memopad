@@ -5,8 +5,11 @@ import WebpackDevServer from 'webpack-dev-server';
 
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+
 import mongoose from 'mongoose';
 import session from 'express-session';
+
+import api from './routes';
 
 const app = express();
 const PORT = 3000;
@@ -30,6 +33,12 @@ app.use(session({
   saveUninitialized: true
 }));
 
+/* handle error */
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 app.use('/', express.static(path.join(__dirname, './../public')));
 
 app.get('/hello', (req, res) => {
@@ -40,7 +49,7 @@ app.listen(PORT, () => {
   console.log('express server is listening on PORT: ' + PORT);
 });
 
-if(process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV == 'development') {
   console.log('Server is running on development mode');
   const config = require('../webpack.dev.config');
   const compiler = webpack(config);
