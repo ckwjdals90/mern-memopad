@@ -1,12 +1,10 @@
 import express from 'express';
 import path from 'path';
-
-import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
 
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-
 import mongoose from 'mongoose';
 import session from 'express-session';
 
