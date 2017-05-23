@@ -9,12 +9,12 @@ const Account = new Schema({
   created: { type: Date, default: Date.now }
 });
 
-// generates hash
+// Generates Hash
 Account.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, 8);
 };
 
-// compares the password
+// Compares the Password
 Account.methods.validateHash = function(password) {
   return bcrypt.compareSync(password, this.password);
 };

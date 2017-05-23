@@ -92,7 +92,7 @@ router.post('/signin', (req, res) => {
 });
 
 router.get('/getinfo', (req, res) => {
-
+  // Check if Session Exists
   if (typeof req.session.loginInfo === "undefined") {
     return res.status(401).json({ error: 1 });
   }
@@ -102,6 +102,7 @@ router.get('/getinfo', (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
+  // Destroy Session
   req.session.destroy(err => { if (err) throw err; });
   return res.json({ success: true });
 });
