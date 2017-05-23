@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
@@ -35,8 +36,8 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  isLoggedIn: React.PropTypes.bool,
-  onLogout: React.PropTypes.func
+  isLoggedIn: PropTypes.bool,
+  onLogout: PropTypes.func
 };
 
 Header.defaultProps = {

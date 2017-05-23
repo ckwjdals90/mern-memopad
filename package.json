@@ -19,6 +19,7 @@
     "express-session": "^1.15.3",
     "mongoose": "^4.10.2",
     "morgan": "^1.8.1",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-addons-update": "^15.5.2",
     "react-dom": "^15.5.4",

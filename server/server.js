@@ -33,13 +33,22 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use('/', express.static(path.join(__dirname, './../public')));
+
+/* setup routers & static directory */
+app.use('/api', api);
+
+/* support client-side routing */
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './../public/index.html'));
+})
+
 /* handle error */
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
 
-app.use('/', express.static(path.join(__dirname, './../public')));
 
 app.get('/hello', (req, res) => {
   return res.send('Hello React');
