@@ -19,7 +19,7 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App>
+      <App location={location}>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />

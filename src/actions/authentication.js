@@ -1,11 +1,15 @@
 import axios from 'axios';
 import {
+  AUTH_REGISTER,
+  AUTH_REGISTER_SUCCESS,
+  AUTH_REGISTER_FAILURE,
   AUTH_LOGIN,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
-  AUTH_REGISTER,
-  AUTH_REGISTER_SUCCESS,
-  AUTH_REGISTER_FAILURE
+  AUTH_GET_STATUS,
+  AUTH_GET_STATUS_SUCCESS,
+  AUTH_GET_STATUS_FAILURE,
+  AUTH_LOGOUT
 } from './ActionTypes';
 
 /* SIGN IN*/
@@ -75,5 +79,55 @@ export function registerFailure(error) {
   return {
     type: AUTH_REGISTER_FAILURE,
     error
+  };
+}
+
+/* GET STATUS */
+export function getStatusRequest() {
+  return (dispatch) => {
+    // inform Get Status API is starting
+    dispatch(getStatus());
+
+    return axios.get('/api/account/getInfo')
+    .then((response) => {
+      dispatch(getStatusSuccess(response.data.info.username));
+    }).catch((error) => {
+      dispatch(getStatusFailure());
+    });
+  };
+}
+
+export function getStatus() {
+  return {
+    type: AUTH_GET_STATUS
+  };
+}
+
+export function getStatusSuccess(username) {
+  return {
+    type: AUTH_GET_STATUS_SUCCESS,
+    username
+  };
+}
+
+export function getStatusFailure() {
+  return {
+    type: AUTH_GET_STATUS_FAILURE
+  };
+}
+
+/* SIGN OUT */
+export function logoutRequest() {
+  return (dispatch) => {
+    return axios.post('/api/accout/logout')
+    .then((response) => {
+      dispatch(logout());
+    });
+  };
+}
+
+export function logout() {
+  return {
+    type: AUTH_LOGOUT
   };
 }
