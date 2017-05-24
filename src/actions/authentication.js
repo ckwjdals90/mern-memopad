@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   AUTH_LOGIN,
   AUTH_LOGIN_SUCCESS,
@@ -5,7 +6,20 @@ import {
 } from './ActionTypes';
 
 export function loginRequest(username, password) {
-  /* to be implemented */
+  return (dispatch) => {
+    // Inform Login API is starting
+    dispatch(login());
+
+    // API REQUEST
+    return axios.post('/api/account/signin', { username, password })
+    .then((response) => {
+      // SUCCEED
+      dispatch(loginSuccess(username));
+    }).catch((error) => {
+      // FAILED
+      dispatch(loginFailure());
+    });
+  };
 }
 
 export function login() {

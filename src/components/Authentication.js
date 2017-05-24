@@ -11,12 +11,28 @@ class Authentication extends Component {
       password: ""
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleChange(e) {
     let nextState = {};
     nextState[e.target.name] = e.target.value;
     this.setState(nextState);
+  }
+
+  handleLogin() {
+    let id = this.state.username;
+    let pw = this.state.password;
+
+    this.props.onLogin(id, pw).then(
+      (success) => {
+        if (!success) {
+          this.setState({
+            password: ''
+          });
+        }
+      }
+    );
   }
 
   render() {
@@ -39,7 +55,7 @@ class Authentication extends Component {
           type="password"
           className="validate"
           onChange={this.handleChange}
-          value={this.state.username}/>
+          value={this.state.password}/>
         </div>
       </div>
     );
@@ -49,7 +65,8 @@ class Authentication extends Component {
         <div className="card-content">
           <div className="row">
             { inputBoxes }
-            <a className="waves-effect waves-light btn">SUBMIT</a>
+            <a className="waves-effect waves-light btn"
+              onClick={this.handleLogin}>SUBMIT</a>
           </div>
         </div>
 
